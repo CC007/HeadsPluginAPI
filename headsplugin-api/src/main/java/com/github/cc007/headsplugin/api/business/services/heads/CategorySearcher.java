@@ -2,6 +2,7 @@ package com.github.cc007.headsplugin.api.business.services.heads;
 
 import com.github.cc007.headsplugin.api.business.domain.Category;
 import com.github.cc007.headsplugin.api.business.domain.Head;
+import com.github.cc007.headsplugin.api.business.domain.exceptions.LockingException;
 
 import java.util.Set;
 
@@ -17,6 +18,7 @@ public interface CategorySearcher {
      *
      * @param categoryName the name of the category to get heads from
      * @return the set of all heads from the specified category
+     * @throws LockingException when the current thread is unable to obtain the lock for starting a transaction
      */
     Set<Head> getCategoryHeads(String categoryName);
 
@@ -25,6 +27,7 @@ public interface CategorySearcher {
      *
      * @param category the category to get heads from
      * @return the set of all heads from the specified category
+     * @throws LockingException when the current thread is unable to obtain the lock for starting a transaction
      */
     default Set<Head> getCategoryHeads(Category category) {
         return getCategoryHeads(category.getName());
