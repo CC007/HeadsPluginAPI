@@ -1,0 +1,5 @@
+com.github.cc007.headsplugin.api
+com.github.cc007.headsplugin.api.business.domain
+com.github.cc007.headsplugin.api.business.domain.events
+com.github.cc007.headsplugin.api.business.domain.exceptions
+com.github.cc007.headsplugin.api.business.services.heads
