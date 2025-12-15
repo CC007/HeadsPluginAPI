@@ -26,13 +26,59 @@
         </repository>
     </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>hpa</id>
-            <name>GitHub public Packages</name>
-            <url>https://maven.pkg.github.com/CC007/HeadsPluginAPI</url>
-        </repository>
-    </distributionManagement>
+    <profiles>
+        <profile>
+            <id>github</id>
+            <distributionManagement>
+                <repository>
+                    <id>github-hpa-packages</id>
+                    <name>GitHub public Packages</name>
+                    <url>https://maven.pkg.github.com/CC007/HeadsPluginAPI</url>
+                </repository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>3.6.2</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-no-snapshot-deploy</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseVersion/>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>cqit</id>
+            <distributionManagement>
+                <repository>
+                    <id>cqit-mvn-releases</id>
+                    <name>CQIT Nexus Maven Releases</name>
+                    <url>https://nexus.cqit.nl/repository/maven-releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>cqit-mvn-shapshots</id>
+                    <name>CQIT Nexus Maven Snapshots</name>
+                    <url>https://nexus.cqit.nl/repository/maven-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
